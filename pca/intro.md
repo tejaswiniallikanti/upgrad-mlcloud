@@ -6,7 +6,7 @@ And generally the rank of a matrix corresponds to how much redundancy there is i
 If some columns in a matrix can be represented as linear combinations of other columns, then we can conclude that those columns are unnecessary.
 If you remember, we had addressed this phenomenon in the module on linear regression - which we called multicollinearity.
 We had discussed how linear regression fails when the data has multicollinearity - or in other words, linear regression fails if the data is low-rank.
-We had also talked about how PCA can help remove this multicollinearity, and render the dataset full rank by removing the dependency.
+We had also talked about how PCA can help remove this multicollinearity, and render the dataset full rank by removing the redundancy.
 
 The geometrical interpretation of PCA is even more interesting. Imaging you are a photographer and you are covering a press conference in an auditorium.
 Let's say that there's a stage, and the speakers sitting on the stage in a single line. Now the question is - what is the best position for you to occupy on the stage,
