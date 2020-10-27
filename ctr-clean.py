@@ -1,82 +1,39 @@
 # coding: utf-8
-import pandas as pd
-get_ipython().run_line_magic('run', '-i avazu-types.py')
+import numpy as np
+
+DTYPES = {
+    'banner_pos': np.int8,
+    'device_type': np.int8,
+    'device_conn_type': np.int8,
+    'month': np.int8,
+    'day': np.int8,
+    'dayofweek': np.int8,
+    'hour': np.int16,
+    'C1': np.int32,
+    'C14': np.int32,
+    'C15': np.int32,
+    'C16': np.int32,
+    'C17': np.int32,
+    'C18': np.int16,
+    'C19': np.int32,
+    'C21': np.int16,
+}
+
 df = pd.read_csv('data/avazu/10M.csv', dtype=DTYPES)
-df['C1'].value_counts()
-df.groupby('C1').agg('click').mean()
-df.dtypes
-df.groupby('banner_pos').agg('click').mean()
-_.sum()
-for c in [f'C{k}' for k in range(14, 22)]:
-    df[c].value_counts().tail()
-    
-for c in [f'C{k}' for k in range(14, 22)]:
-    print(df[c].value_counts().tail())
-    
-    
-for c in [f'C{k}' for k in range(14, 22)]:
-    print(c, df[c].nunique())
-    
+
 vcs = df['C14'].value_counts()
-vcs.tail()
-vcs.tail(20)
-vcs.tail(30)
-(vcs == 1).sum()
-c14_drop = vcs[vcs == 1].index
 c14_keep = vcs[vcs > 1].index
 df = df[df['C14'].isin(c14_keep)]
-df.shape
-df.head()
-df['site_category'].nunique()
-df['site_category'].value_counts()
-vcs = _
-sc_keep = vcs[vcs > 1].index
-sc_drop = vcs[vcs < 10].index
-df[df['site_category'].isin(sc_drop)]['click']
-df.groupby('site_category')['click'].mean()
-vcs = _
+
+vcs = df.groupby('site_category')['click'].mean()
 sc_keep = vcs[vcs > 0].index
 df = df[df['site_category'].isin(sc_keep)]
-df['device_type'].nunique()
-df.groupby('device_type')['click'].mean()
-df['device_type'].value_counts()
+
 df = df[df['device_type'] != 2]
-df.head()
-df.shape
-df['device_type'].nunique()
-df['device_conn_type'].nunique()
-df['device_conn_type'].value_counts()
-df.groupby('device_conn_type')['click'].mean()
-df['site_id'].nunique()
-df['site_id'].value_counts()
-vcs = _
-vcs[vcs == 1]
+vcs = df['site_id'].value_counts()
 sid1 = vcs[vcs == 1].index
-df[df['site_id'].isin(sid1)]['click'].sum()
-sid1.shape
-120 / 565
-df['site_domain'].nunique()
-df['site_domain'].value_counts().tail()
-vcs = df['site_domain'].value_counts()
-(vcs == 1).sum()
-sd1 = vcs[vcs == 1].index
-sd1
-sd1.shape
-df[df['site_domain'].isin(sd1)]['click'].sum() / _[0]
-df['app_id'].nunique()
-vcs = df['app_id'].value_counts()
-vcs.tail()
-aid = vcs[vcs == 1].index
-df[df['app_id'].isin(aid)]['click'].sum() / aid.shape[0]
-df['app_domain'].nunique()
-vcs = df['app_domain'].value_counts()
-vcs.tail()
-adm = vcs[vcs == 1].index
-df[df['app_domain'].isin(adm)]['click'].sum() / adm.shape[0]
-df['app_category'].nunique()
-df['app_category'].value_counts()
-df.groupby('app_category')['click'].mean()
-appcat_gb = _
+
+appcat_gb = df.groupby('app_category')['click'].mean()
 appcat_keep = appcat_gb[appcat_gb > 0].index
 df = df[df['app_category'].isin(appcat_keep)]
 df.shape
